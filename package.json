@@ -1,0 +1,24 @@
+{
+  "name": "l2",
+  "version": "1.0.0",
+  "description": "Programa de consola para creacion de equipos de red",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SharkDiamond/Creador-Routers.git"
+  },
+  "author": "Gabriel Arispe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SharkDiamond/Creador-Routers/issues"
+  },
+  "homepage": "https://github.com/SharkDiamond/Creador-Routers#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "inquirer": "^8.0.0",
+    "uuid": "^8.3.2"
+  }
+}
