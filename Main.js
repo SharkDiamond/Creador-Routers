@@ -1,39 +1,52 @@
-const {Principal,showDevices}=require('./Menus.js');
-
+const {Principal,showDevices,CreateDevice,pausa}=require('./Menus.js');
+const Router=require("./Routers.js");
 
 const Main = async () => {
 
-const choice=await Principal();
+//const choice=await Principal();
+//console.clear();
 
-  switch (choice) {
 
-  case 1:
-  console.log(choice);
+let choice="0";
+  
+const R=new Router();
+
+do{
+
+
+choice= await Principal();
+
+
+switch (choice) {
+
+  case "1":
+
+  const info = await CreateDevice("Name of Device:");
+
+
+  R.createDevices(info[0],info[1]);
+
+
   break;
 
-  case 2:
-  let example=[{
-  name:"Netgear",
-  value:1
-  },
-  {name:"Mikrotik",
-  value:2 },
-  {name:"Cisco",
-  value:3 }];
-
-  showDevices(example);
+  case "2":
+  
+  //await showDevices(R.transformarDato());
 
 break;
 
-  case 3:
-  console.log(choice);
-  break;
+  
 
-  default:
+}
+  await pausa();
+
 
 }
 
+while(choice!=="0");
 
+
+  
 
 }
 

@@ -1,27 +1,27 @@
 const inquirer = require('inquirer');
-
 require('colors');
 
 
 
 const Principal = async () => {
 
+console.clear();
   const P=[{
     type:"list",
     name:"Option",
     message:"Welcome to router creator choose an option.",
     choices:[
       {
-        name:"Create Device",
-        value:1
+        value:"1",
+        name:"Create Device"
       },
       {
-        name:"Show Devices",
-        value:2
+        value:"2",
+        name:"Show Devices"
       },
       {
-        name:"Delete Device",
-        value:3
+        value:"3",
+        name:"Delete Device"
       }
     ]
 
@@ -35,7 +35,7 @@ const Principal = async () => {
 }
 
 
-const showDevices = (data) => {
+const showDevices = async (data) => {
 
   const P=[{
     type:"list",
@@ -53,9 +53,55 @@ const showDevices = (data) => {
 }
 
 
-module.exports = {
+const CreateDevice= async (message)=>{
 
+
+    const P=[{
+    type:"input",
+    name:"Device",
+    message,
+    validate:(D)=>{
+
+if (D.length!==0) return true; 
+
+    }},{type:"number",name:"numbersInterfaces",message:"Chosse of Interfaces:",validate:(D)=>{if(D>0) return true;}}];
+
+  
+
+  
+
+const {Device,numbersInterfaces}=inquirer.prompt(P);
+
+const resposes=[Device,numbersInterfaces];
+
+return resposes;
+
+
+}
+
+
+const pausa= async () => {
+
+const preguntaPausa=[
+{
+  type:"input",
+  name:"enter",
+  message:`Presione ${`enter`.green} para continuar`
+}
+];
+
+
+await inquirer.prompt(preguntaPausa);
+
+
+}
+
+
+
+module.exports = {
 Principal,
-showDevices
+showDevices,
+CreateDevice,
+pausa
 
 };
