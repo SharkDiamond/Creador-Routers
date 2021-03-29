@@ -70,7 +70,7 @@ if (D.length!==0) return true;
 
   
 
-const {Device,numbersInterfaces}=inquirer.prompt(P);
+const {Device,numbersInterfaces}=await inquirer.prompt(P);
 
 const resposes=[Device,numbersInterfaces];
 
