@@ -23,6 +23,15 @@ createDevices(name,interfaces){
 }
 
 
+deleteDevice(data){
+
+delete this.router[data];
+
+
+
+}
+
+
 
 transformarDato(){
 

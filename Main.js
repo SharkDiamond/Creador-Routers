@@ -36,6 +36,14 @@ switch (choice) {
 
   break;
 
+ case "3":
+
+ const Delete=await showDevices(R.transformarDato());
+
+ console.log(Delete);
+
+ R.deleteDevice(Delete.device_chosenone);
+
 
 
 }
