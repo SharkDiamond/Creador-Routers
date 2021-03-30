@@ -37,18 +37,35 @@ console.clear();
 
 const showDevices = async (data) => {
 
-  const P=[{
-    type:"list",
-    name:"device_chosenone",
-    message:"Devices, want configuration any?.",
-    choices:data
-  }];
+if (data.length!==0) {
+
+  const values=data.map((item) => {
+
+    return {
+      value:item.id,
+      name:item.name
+
+    };
 
 
-  const device_chosenone=inquirer.prompt(P);
+  });
 
-  return device_chosenone;
+   const P=[{
+     type:"list",
+     name:"device_chosenone",
+     message:"Devices, want configuration any?.",
+     choices:values
+   }];
 
+   const device_chosen_one=inquirer.prompt(P);
+
+   return device_chosen_one;
+
+
+}
+
+
+return "No Device registers in the database"
 
 }
 
@@ -62,13 +79,13 @@ const CreateDevice= async (message)=>{
     message,
     validate:(D)=>{
 
-if (D.length!==0) return true; 
+if (D.length!==0) return true;
 
     }},{type:"number",name:"numbersInterfaces",message:"Chosse of Interfaces:",validate:(D)=>{if(D>0) return true;}}];
 
-  
 
-  
+
+
 
 const {Device,numbersInterfaces}=await inquirer.prompt(P);
 

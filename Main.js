@@ -1,6 +1,6 @@
 const {Principal,showDevices,CreateDevice,pausa}=require('./Menus.js');
 const Router=require("./Routers.js");
-
+const {guardarDB,leerDB} = require('./Data/File.js');
 const Main = async () => {
 
 //const choice=await Principal();
@@ -8,7 +8,7 @@ const Main = async () => {
 
 
 let choice="0";
-  
+
 const R=new Router();
 
 do{
@@ -23,21 +23,25 @@ switch (choice) {
 
   const info = await CreateDevice("Name of Device:");
 
-
   R.createDevices(info[0],info[1]);
-
 
   break;
 
   case "2":
-  
-  //await showDevices(R.transformarDato());
 
-break;
+  const data= await showDevices(R.transformarDato());
 
-  
+  console.log(data);
+
+
+  break;
+
+
 
 }
+
+  guardarDB(R.transformarDato());
+
   await pausa();
 
 
@@ -46,7 +50,7 @@ break;
 while(choice!=="0");
 
 
-  
+
 
 }
 

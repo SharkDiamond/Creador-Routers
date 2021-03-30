@@ -26,12 +26,13 @@ createDevices(name,interfaces){
 
 transformarDato(){
 
-	const routerMatriz=[];
+	let routerMatriz=[];
 
 	Object.keys(this.router).forEach((item,i)=>{
 
-		routerMatriz[i]=this.router[item];
+	let	r=this.router[item];
 
+	routerMatriz.push(r);
 
 });
 
