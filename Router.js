@@ -6,16 +6,18 @@ class Route{
 
 id="";
 name="";
-interfaces=0;
+interfaces={};
 ips="";
 
-constructor(name,interfaces){
+constructor(name,shoes_interface){
 
 
 	this.id=uuidv4();
 	this.name=name;
-	this.interfaces=interfaces;
 
+	for (let i = 1; i <=shoes_interface ; i++) {
+		this.interfaces[i]={name:""};
+	}
 
 
 }

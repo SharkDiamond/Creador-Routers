@@ -4,58 +4,50 @@ const {Route}=require("./Router.js");
 class Router{
 
 
-router={};
+	router={};
 
 
-constructor(){}
-
-
-createDevices(name,interfaces){
-
-
-	const D=new Route(name,interfaces);
-
-
-	this.router[D.id]=D;
-
+	constructor(){
 
 
 }
 
 
-deleteDevice(data){
+	createDevices(name,interfaces){
 
-delete this.router[data];
+		const D=new Route(name,interfaces);
 
-
+		this.router[D.id]=D;
 
 }
 
 
+	deleteDevice(data){
 
-transformarDato(){
+		let Encontrado=this.router.findIndex((item) => item.id == data);
 
-	let routerMatriz=[];
+		delete this.router[Encontrado];
 
-	Object.keys(this.router).forEach((item,i)=>{
+		//console.log();
 
-	let	r=this.router[item];
+}
 
-	routerMatriz.push(r);
+	transformarDato(){
+
+		let routerMatriz=[];
+
+		Object.keys(this.router).forEach((item,i)=>{
+
+			let	r=this.router[item];
+
+			routerMatriz.push(r);
 
 });
 
 
-return routerMatriz;
+		return routerMatriz;
 
 }
-
-
-
-
-
-
-
 
 }
 

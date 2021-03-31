@@ -5,7 +5,6 @@ const archivo="./Data/Datos.json";
 
 const guardarDB =(data) => {
 
-
 fs.writeFileSync(archivo,JSON.stringify(data));
 
 }

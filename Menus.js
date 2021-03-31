@@ -65,7 +65,69 @@ if (data.length!==0) {
 }
 
 
-return "No Device registers in the database"
+return "No Device registers in the database";
+
+}
+
+const showConfigurationDevice = async (id,data) => {
+
+  const device=data.find(item => item.id==id.device_chosenone);
+
+  const P=[{
+  type:"list",
+  name:"Configuration",
+  message:"What configuration want change of the device?",
+  choices:[
+    {
+      value:"interfaces",
+      name:"Interfaces"
+    },
+    {
+      value:"ips",
+      name:"Ips"
+    }
+  ]
+
+}];
+
+  const{Configuration} = await inquirer.prompt(P);
+
+  if (Configuration=="interfaces") {
+
+    let interfaceName=[];
+    let interfaceChoice=[];
+    const tr=device[Configuration];
+
+    Object.keys(device[Configuration]).forEach((item, i) => {
+
+      interfaceName[i]=tr[item].name;
+
+    });
+
+    console.log(interfaceName);
+
+
+
+    for (var i = 0; i < interfaceName.length; i++) {
+
+      let iC=i+1;
+
+      interfaceChoice[i]={value:iC,name:interfaceName[i]};
+
+    }
+
+    const EditInterfaces=[{
+    type:"list",
+    name:"interface",
+    message:"What interface want configuration?",
+    choices:interfaceChoice
+    }];
+
+    const {interface}= await inquirer.prompt(EditInterfaces);
+
+
+}
+
 
 }
 
@@ -119,6 +181,7 @@ module.exports = {
 Principal,
 showDevices,
 CreateDevice,
-pausa
+pausa,
+showConfigurationDevice
 
 };

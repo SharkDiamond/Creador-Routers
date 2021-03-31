@@ -1,61 +1,68 @@
-const {Principal,showDevices,CreateDevice,pausa}=require('./Menus.js');
+const {Principal,showDevices,CreateDevice,pausa,showConfigurationDevice}=require('./Menus.js');
 const Router=require("./Routers.js");
 const {guardarDB,leerDB} = require('./Data/File.js');
+
+
+
+
 const Main = async () => {
 
-//const choice=await Principal();
-//console.clear();
 
 
-let choice="0";
+  let choice="0";
 
-const R=new Router();
-
-do{
+  const R=new Router();
 
 
-choice= await Principal();
+  do{
+
+    let DTA=leerDB();
+
+    if (DTA) R.router=DTA;
 
 
-switch (choice) {
-
-  case "1":
-
-  const info = await CreateDevice("Name of Device:");
-
-  R.createDevices(info[0],info[1]);
-
-  break;
-
-  case "2":
-
-  const data= await showDevices(R.transformarDato());
-
-  console.log(data);
+    choice= await Principal();
 
 
-  break;
+    switch (choice) {
 
- case "3":
+      case "1":
 
- const Delete=await showDevices(R.transformarDato());
+        const info = await CreateDevice("Name of Device:");
 
- console.log(Delete);
+        R.createDevices(info[0],info[1]);
 
- R.deleteDevice(Delete.device_chosenone);
+      break;
+
+      case "2":
+
+        let Data=R.transformarDato();
+
+        let Id = await showDevices(Data);
+
+        if (Data.length!==0) await showConfigurationDevice(Id,Data);
 
 
+      break;
 
-}
+      case "3":
 
-  guardarDB(R.transformarDato());
+        const Delete=await showDevices(R.transformarDato());
 
-  await pausa();
+
+        R.deleteDevice(Delete.device_chosenone);
 
 
 }
 
-while(choice!=="0");
+    guardarDB(R.transformarDato());
+
+    await pausa();
+
+
+}
+
+  while(choice!=="0");
 
 
 
