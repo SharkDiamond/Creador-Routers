@@ -113,6 +113,9 @@ const showConfigurationDevice = async (id,data) => {
 
     }
 
+
+    interfaceChoice.push({value:interfaceChoice.length,name:"Exit"});
+
     const EditInterfaces=[{
     type:"rawlist",
     name:"interface",
@@ -120,23 +123,70 @@ const showConfigurationDevice = async (id,data) => {
     choices:interfaceChoice
     }];
 
+
     const {interface}= await inquirer.prompt(EditInterfaces);
 
-   const newNameInterface=await read_enter("Change name of interface:");
+    let exitIndice=interfaceChoice.length-1;
 
-   let Change=device.interfaces;
 
-   Change[interface].name=newNameInterface;
+   if (exitIndice==interface) {
+
+     //SALIENDO AL MENU PRINCIPAL
+
+   }
+
+   else {
+
+     const newNameInterface=await read_enter("Change name of interface:");
+
+     let Change=device.interfaces;
+
+     Change[interface].name=newNameInterface;
+
+   }
+
+
 
 }
 
   else if (Configuration=="ips") {
 
+    //LISTANDO
     console.log("Ip address List");
 
-    const newIp=await read_enter("Add ip address:");
+    let menuIp=[];
+    //HAY QUE MEJORARLO COLOCANDOLO EN UN FUNCION A PARTE POR QUE SE REPITE
 
-    device.ips.push(newIp);
+    for (var i = 0; i < device.ips.length; i++) {
+
+      let iC=i+1;
+
+      menuIp[i]={value:iC,name:device.ips[i]};
+
+    }
+
+    menuIp.unshift({value:1,name:"Add Ip Address"});
+
+    menuIp.push({value:menuIp.length,name:"Exit"});
+
+
+    const EditIps=[{
+    type:"rawlist",
+    name:"IP",
+    message:"What ip want configuration?",
+    choices:menuIp
+    }];
+
+    const {IP} = await inquirer.prompt(EditIps);
+
+    if (IP==1) {
+
+      //CREANDO
+      const newIp=await read_enter("Add ip address:");
+
+      device.ips.push(newIp);
+
+    }
 
 
   }
