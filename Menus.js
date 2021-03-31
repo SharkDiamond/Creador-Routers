@@ -104,9 +104,6 @@ const showConfigurationDevice = async (id,data) => {
 
     });
 
-    console.log(interfaceName);
-
-
 
     for (var i = 0; i < interfaceName.length; i++) {
 
@@ -125,8 +122,35 @@ const showConfigurationDevice = async (id,data) => {
 
     const {interface}= await inquirer.prompt(EditInterfaces);
 
+   const newNameInterface=await read_enter("Change name of interface:");
+
+
+
 
 }
+
+
+}
+
+
+const  read_enter= async (message)=>{
+
+
+
+    const P=[{
+    type:"input",
+    name:"Information",
+    message,
+    validate:(D)=>{
+if (D.length!==0) {return true;}
+
+}
+}];
+
+
+const {Information}=await inquirer.prompt(P);
+
+return Information;
 
 
 }
