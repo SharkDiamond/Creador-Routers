@@ -7,7 +7,7 @@ class Route{
 id="";
 name="";
 interfaces={};
-ips="";
+ips=[];
 
 constructor(name,shoes_interface){
 

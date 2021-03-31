@@ -114,7 +114,7 @@ const showConfigurationDevice = async (id,data) => {
     }
 
     const EditInterfaces=[{
-    type:"list",
+    type:"rawlist",
     name:"interface",
     message:"What interface want configuration?",
     choices:interfaceChoice
@@ -124,18 +124,29 @@ const showConfigurationDevice = async (id,data) => {
 
    const newNameInterface=await read_enter("Change name of interface:");
 
+   let Change=device.interfaces;
 
-
+   Change[interface].name=newNameInterface;
 
 }
+
+  else if (Configuration=="ips") {
+
+    console.log("Ip address List");
+
+    const newIp=await read_enter("Add ip address:");
+
+    device.ips.push(newIp);
+
+
+  }
+
 
 
 }
 
 
 const  read_enter= async (message)=>{
-
-
 
     const P=[{
     type:"input",
