@@ -154,14 +154,28 @@ const showConfigurationDevice = async (id,data) => {
     //LISTANDO
     console.log("Ip address List");
 
+
+    let interfacesIp=Object.keys(device.ips);
+
+    let interfacesname=[];
+
+
+    Object.keys(device.interfaces).forEach((item, i) => {
+
+      interfacesname[i]=device.interfaces[item].name;
+
+      console.log(interfacesname[i]);
+    });
+
+
     let menuIp=[];
     //HAY QUE MEJORARLO COLOCANDOLO EN UN FUNCION A PARTE POR QUE SE REPITE
 
-    for (var i = 0; i < device.ips.length; i++) {
+    for (var i = 0; i < interfacesIp.length; i++) {
 
       let iC=i+1;
-
-      menuIp[i]={value:iC,name:device.ips[i]};
+      let info=`${device.ips[interfacesIp[i]]}`+` ${interfacesname[i]}`;
+      menuIp[i]={value:iC,name:info};
 
     }
 
@@ -181,10 +195,43 @@ const showConfigurationDevice = async (id,data) => {
 
     if (IP==1) {
 
+
+      let interfaceName=[];
+
+      let interfaceChoice=[];
+
+      const tr=device["interfaces"];
+
+      Object.keys(device["interfaces"]).forEach((item, i) => {
+
+        interfaceName[i]=tr[item].name;
+
+      });
+
+
+      for (var i = 0; i < interfaceName.length; i++) {
+
+        let iC=i+1;
+
+        interfaceChoice[i]={value:iC,name:interfaceName[i]};
+
+      }
+
+
+      const listInterfaces=[{
+      type:"list",
+      name:"interface",
+      message:"What interface want configuration?",
+      choices:interfaceChoice
+      }];
+
+
       //CREANDO
       const newIp=await read_enter("Add ip address:");
 
-      device.ips.push(newIp);
+      const {interface}= await inquirer.prompt(listInterfaces);
+
+      device.ips[interface]=newIp;
 
     }
 
