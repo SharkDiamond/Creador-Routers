@@ -92,17 +92,22 @@ const showConfigurationDevice = async (id,data) => {
 
   const{Configuration} = await inquirer.prompt(P);
 
+  let interfaceName=[];
+
+  const tr=device["interfaces"];
+
+  Object.keys(device["interfaces"]).forEach((item, i) => {
+
+    interfaceName[i]=tr[item].name;
+
+  });
+
+
+
   if (Configuration=="interfaces") {
 
-    let interfaceName=[];
+
     let interfaceChoice=[];
-    const tr=device[Configuration];
-
-    Object.keys(device[Configuration]).forEach((item, i) => {
-
-      interfaceName[i]=tr[item].name;
-
-    });
 
 
     for (var i = 0; i < interfaceName.length; i++) {
@@ -154,19 +159,7 @@ const showConfigurationDevice = async (id,data) => {
     //LISTANDO
     console.log("Ip address List");
 
-
     let interfacesIp=Object.keys(device.ips);
-
-    let interfacesname=[];
-
-
-    Object.keys(device.interfaces).forEach((item, i) => {
-
-      interfacesname[i]=device.interfaces[item].name;
-
-      console.log(interfacesname[i]);
-    });
-
 
     let menuIp=[];
     //HAY QUE MEJORARLO COLOCANDOLO EN UN FUNCION A PARTE POR QUE SE REPITE
@@ -174,7 +167,15 @@ const showConfigurationDevice = async (id,data) => {
     for (var i = 0; i < interfacesIp.length; i++) {
 
       let iC=i+1;
-      let info=`${device.ips[interfacesIp[i]]}`+` ${interfacesname[i]}`;
+
+      let objetoIp=device.ips[iC];
+
+      if (device.interfaces[iC].isInte) {
+
+      }
+
+
+      let info=`${objetoIp.ip} `+`${objetoIp.interfaz}`;
       menuIp[i]={value:iC,name:info};
 
     }
@@ -182,7 +183,6 @@ const showConfigurationDevice = async (id,data) => {
     menuIp.unshift({value:1,name:"Add Ip Address"});
 
     menuIp.push({value:menuIp.length,name:"Exit"});
-
 
     const EditIps=[{
     type:"rawlist",
@@ -195,19 +195,7 @@ const showConfigurationDevice = async (id,data) => {
 
     if (IP==1) {
 
-
-      let interfaceName=[];
-
       let interfaceChoice=[];
-
-      const tr=device["interfaces"];
-
-      Object.keys(device["interfaces"]).forEach((item, i) => {
-
-        interfaceName[i]=tr[item].name;
-
-      });
-
 
       for (var i = 0; i < interfaceName.length; i++) {
 
@@ -217,7 +205,6 @@ const showConfigurationDevice = async (id,data) => {
 
       }
 
-
       const listInterfaces=[{
       type:"list",
       name:"interface",
@@ -225,13 +212,18 @@ const showConfigurationDevice = async (id,data) => {
       choices:interfaceChoice
       }];
 
-
       //CREANDO
       const newIp=await read_enter("Add ip address:");
 
       const {interface}= await inquirer.prompt(listInterfaces);
 
-      device.ips[interface]=newIp;
+      let interfazSelected=device.interfaces[interface];
+
+      let indiceOfAgregation = interfacesIp.length+1;
+
+      device.ips[indiceOfAgregation]={interfaz:interfazSelected.name,ip:newIp};
+
+
 
     }
 
